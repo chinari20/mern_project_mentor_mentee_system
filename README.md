@@ -15,7 +15,7 @@ A complete MERN stack mentor-mentee platform with role-based dashboards for admi
 
 ```text
 root/
-  client/
+  frontend/
     .env.example
     index.html
     package.json
@@ -44,7 +44,7 @@ root/
       App.jsx
       index.css
       main.jsx
-  server/
+  backend/
     .env.example
     package.json
     src/
@@ -79,7 +79,7 @@ root/
 1. Go to the server folder:
 
 ```bash
-cd server
+cd backend
 ```
 
 2. Install dependencies:
@@ -107,7 +107,7 @@ npm run dev
 1. Open a new terminal and go to the client folder:
 
 ```bash
-cd client
+cd frontend
 ```
 
 2. Install dependencies:
