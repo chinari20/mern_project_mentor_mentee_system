@@ -1,4 +1,5 @@
 const onlineUsers = new Map();
+const getUserId = (value) => (typeof value === "string" ? value : value?._id);
 
 export const initializeSocket = (io) => {
   io.on("connection", (socket) => {
@@ -7,7 +8,7 @@ export const initializeSocket = (io) => {
     });
 
     socket.on("private:message", async (payload) => {
-      const receiverSocket = onlineUsers.get(payload.receiverId);
+      const receiverSocket = onlineUsers.get(getUserId(payload.receiverId));
       if (receiverSocket) {
         io.to(receiverSocket).emit("private:message", payload);
       }

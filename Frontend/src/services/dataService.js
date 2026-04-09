@@ -16,8 +16,11 @@ export const dataService = {
   getGoals: () => api.get("/goals"),
   createGoal: (payload) => api.post("/goals", payload),
   updateGoal: (id, payload) => api.patch(`/goals/${id}`, payload),
-  getConversations: () => api.get("/messages"),
-  getMessages: (userId) => api.get(`/messages/${userId}`),
+  createConversation: (payload) => api.post("/conversations", payload),
+  getConversations: (userId) => api.get(`/conversations/${userId}`),
+  findConversation: (firstUserId, secondUserId) =>
+    api.get(`/conversations/find/${firstUserId}/${secondUserId}`),
+  getMessages: (conversationId) => api.get(`/messages/${conversationId}`),
   sendMessage: (payload) => api.post("/messages", payload),
   getNotifications: () => api.get("/notifications"),
   markNotificationRead: (id) => api.patch(`/notifications/${id}/read`),

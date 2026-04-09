@@ -1,11 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Badge } from "../../components/common/Badge";
+import { Button } from "../../components/common/Button";
 import { Loader } from "../../components/common/Loader";
 import { SectionHeading } from "../../components/common/SectionHeading";
 import { useFetch } from "../../hooks/useFetch";
 import { dataService } from "../../services/dataService";
 
 export default function MenteeRequestsPage() {
+  const navigate = useNavigate();
   const { data, loading, setData } = useFetch(() => dataService.getRequests(), []);
 
   const handleWithdraw = async (id) => {
@@ -35,9 +38,18 @@ export default function MenteeRequestsPage() {
                 {request.status}
               </Badge>
               {request.status === "pending" ? (
-                <button className="btn-secondary" onClick={() => handleWithdraw(request._id)}>
+                <Button variant="secondary" onClick={() => handleWithdraw(request._id)}>
                   Cancel
-                </button>
+                </Button>
+              ) : null}
+              {request.status === "accepted" ? (
+                <Button
+                  variant="secondary"
+                  onClick={() => navigate(`/mentee/messages?userId=${request.mentorId?._id || ""}`)}
+                  disabled={!request.mentorId?._id}
+                >
+                  Open chat
+                </Button>
               ) : null}
             </div>
           </div>

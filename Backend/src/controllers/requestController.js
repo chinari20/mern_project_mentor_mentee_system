@@ -5,6 +5,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { sendResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { createNotification } from "../services/notificationService.js";
+import { ensureConversationForRequest } from "../services/conversationService.js";
 
 export const createRequest = asyncHandler(async (req, res) => {
   const { mentorId, message, goals, preferredTime } = req.body;
@@ -80,6 +81,8 @@ export const updateRequestStatus = asyncHandler(async (req, res) => {
       { userId: req.user._id },
       { $inc: { totalMenteesGuided: 1 } },
     );
+
+    await ensureConversationForRequest(request);
   }
 
   await createNotification({
